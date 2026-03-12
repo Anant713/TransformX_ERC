@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RobotDog Debug</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #0d0f0e;
+    --panel:    #131615;
+    --border:   #1f2421;
+    --accent:   #00ff88;
+    --warn:     #ffaa00;
+    --err:      #ff4455;
+    --muted:    #3a4040;
+    --text:     #c8d4cc;
+    --mono:     'Share Tech Mono', monospace;
+    --sans:     'Barlow', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 320px 1fr;
+    grid-template-areas:
+      "header header"
+      "controls log";
+  }
+
+  /* ── Header ── */
+  header {
+    grid-area: header;
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-family: var(--mono);
+    font-size: 18px;
+    color: var(--accent);
+    letter-spacing: 2px;
+  }
+
+  .logo span { color: var(--muted); }
+
+  .status-pill {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 2px;
+    border: 1px solid var(--muted);
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s;
+  }
+
+  .status-pill.connected {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .status-pill.connected .dot { background: var(--accent); }
+  .status-pill.error { border-color: var(--err); color: var(--err); }
+  .status-pill.error .dot { background: var(--err); }
+
+  .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--muted);
+  }
+
+  /* ── Left panel ── */
+  .controls {
+    grid-area: controls;
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .card-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    background: #0f1110;
+    text-transform: uppercase;
+  }
+
+  .card-body { padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+
+  /* ── Leg selector ── */
+  .leg-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+  }
+
+  .leg-btn {
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 8px;
+    background: transparent;
+    border: 1px solid var(--muted);
+    color: var(--muted);
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.15s;
+    text-align: center;
+  }
+
+  .leg-btn:hover { border-color: var(--text); color: var(--text); }
+  .leg-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(0,255,136,0.06); }
+
+  /* ── Mode toggle ── */
+  .mode-toggle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+  }
+
+  .mode-btn {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 7px;
+    background: transparent;
+    border: 1px solid var(--muted);
+    color: var(--muted);
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.15s;
+    text-align: center;
+  }
+
+  .mode-btn.active { border-color: var(--warn); color: var(--warn); background: rgba(255,170,0,0.06); }
+
+  /* ── Sliders ── */
+  .slider-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .slider-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 11px;
+  }
+
+  .axis-tag {
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: bold;
+    width: 16px;
+  }
+
+  .val-display {
+    color: var(--warn);
+    min-width: 52px;
+    text-align: right;
+  }
+
+  input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 3px;
+    background: var(--muted);
+    border-radius: 2px;
+    outline: none;
+  }
+
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: 2px solid var(--bg);
+    transition: background 0.15s;
+  }
+
+  input[type=range]::-webkit-slider-thumb:hover { background: #fff; }
+
+  /* ── Number inputs for direct entry ── */
+  .xyz-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+  }
+
+  .xyz-field {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .xyz-field label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .xyz-field input[type=number] {
+    background: #0a0c0b;
+    border: 1px solid var(--muted);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 6px 4px;
+    text-align: center;
+    border-radius: 2px;
+    width: 100%;
+    outline: none;
+    -moz-appearance: textfield;
+  }
+
+  .xyz-field input[type=number]::-webkit-inner-spin-button { display: none; }
+  .xyz-field input[type=number]:focus { border-color: var(--accent); }
+
+  /* ── Buttons ── */
+  .btn {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 1px;
+    padding: 9px 14px;
+    border: 1px solid;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-transform: uppercase;
+    width: 100%;
+  }
+
+  .btn-primary {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(0,255,136,0.04);
+  }
+
+  .btn-primary:hover { background: rgba(0,255,136,0.12); }
+
+  .btn-secondary {
+    border-color: var(--muted);
+    color: var(--muted);
+    background: transparent;
+  }
+
+  .btn-secondary:hover { border-color: var(--text); color: var(--text); }
+
+  .btn-warn {
+    border-color: var(--warn);
+    color: var(--warn);
+    background: rgba(255,170,0,0.04);
+  }
+
+  .btn-warn:hover { background: rgba(255,170,0,0.12); }
+
+  .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+
+  /* ── Raw command input ── */
+  .cmd-input-row {
+    display: flex;
+    gap: 6px;
+  }
+
+  .cmd-input {
+    flex: 1;
+    background: #0a0c0b;
+    border: 1px solid var(--muted);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 7px 10px;
+    border-radius: 2px;
+    outline: none;
+  }
+
+  .cmd-input:focus { border-color: var(--accent); }
+
+  .cmd-send {
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 7px 14px;
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .cmd-send:hover { background: rgba(0,255,136,0.1); }
+
+  /* ── Log panel ── */
+  .log-panel {
+    grid-area: log;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .log-header {
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .log-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .clear-btn {
+    font-family: var(--mono);
+    font-size: 10px;
+    background: transparent;
+    border: 1px solid var(--muted);
+    color: var(--muted);
+    padding: 3px 8px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .clear-btn:hover { border-color: var(--err); color: var(--err); }
+
+  .log-output {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 16px;
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .log-line { display: flex; gap: 10px; }
+  .log-ts { color: var(--muted); flex-shrink: 0; }
+  .log-msg { color: var(--text); word-break: break-all; }
+  .log-msg.ok  { color: var(--accent); }
+  .log-msg.err { color: var(--err); }
+  .log-msg.sys { color: var(--warn); }
+  .log-msg.cmd { color: #88ccff; }
+
+  /* ── IP config ── */
+  .ip-input {
+    background: #0a0c0b;
+    border: 1px solid var(--muted);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 7px 10px;
+    border-radius: 2px;
+    outline: none;
+    width: 100%;
+  }
+
+  .ip-input:focus { border-color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">ROBOT<span>/</span>DOG <span style="font-size:12px;color:#3a4040">// DEBUG INTERFACE</span></div>
+  <div class="status-pill" id="statusPill">
+    <div class="dot"></div>
+    <span id="statusText">DISCONNECTED</span>
+  </div>
+</header>
+
+<!-- ── Left Controls ── -->
+<div class="controls">
+
+  <!-- Connection -->
+  <div class="card">
+    <div class="card-title">Connection</div>
+    <div class="card-body">
+      <input class="ip-input" id="wsUrl" value="ws://192.168.4.1:81" placeholder="ws://192.168.4.1:81"/>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="connect()">CONNECT</button>
+        <button class="btn btn-secondary" onclick="disconnect()">DISCONNECT</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leg selector -->
+  <div class="card">
+    <div class="card-title">Active Leg</div>
+    <div class="card-body">
+      <div class="leg-grid">
+        <button class="leg-btn active" id="leg0" onclick="selectLeg(0)">FL · LEG 0</button>
+        <button class="leg-btn" id="leg1" onclick="selectLeg(1)">FR · LEG 1</button>
+        <button class="leg-btn" id="leg2" onclick="selectLeg(2)">RL · LEG 2</button>
+        <button class="leg-btn" id="leg3" onclick="selectLeg(3)">RR · LEG 3</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mode -->
+  <div class="card">
+    <div class="card-title">Control Mode</div>
+    <div class="card-body">
+      <div class="mode-toggle">
+        <button class="mode-btn active" id="modeIK" onclick="setMode('ik')">IK (xyz)</button>
+        <button class="mode-btn" id="modeDirect" onclick="setMode('direct')">DIRECT (θ)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- IK sliders -->
+  <div class="card" id="ikCard">
+    <div class="card-title">Position — IK Mode</div>
+    <div class="card-body">
+      <div class="slider-row">
+        <div class="slider-label">
+          <span class="axis-tag">X</span>
+          <span style="color:var(--muted);font-size:10px">forward/back (mm)</span>
+          <span class="val-display" id="xVal">0</span>
+        </div>
+        <input type="range" id="xSlider" min="-100" max="100" value="0" step="1" oninput="onSlider()">
+      </div>
+      <div class="slider-row">
+        <div class="slider-label">
+          <span class="axis-tag">Y</span>
+          <span style="color:var(--muted);font-size:10px">left/right (mm)</span>
+          <span class="val-display" id="yVal">0</span>
+        </div>
+        <input type="range" id="ySlider" min="-80" max="80" value="0" step="1" oninput="onSlider()">
+      </div>
+      <div class="slider-row">
+        <div class="slider-label">
+          <span class="axis-tag">Z</span>
+          <span style="color:var(--muted);font-size:10px">up/down (mm)</span>
+          <span class="val-display" id="zVal">-200</span>
+        </div>
+        <input type="range" id="zSlider" min="-300" max="-50" value="-200" step="1" oninput="onSlider()">
+      </div>
+      <button class="btn btn-primary" onclick="sendSetPos()">SEND SETPOS</button>
+      <button class="btn btn-secondary" onclick="sendTestIK()">TEST IK (no move)</button>
+    </div>
+  </div>
+
+  <!-- Direct angle inputs -->
+  <div class="card" id="directCard" style="display:none">
+    <div class="card-title">Angles — Direct Mode</div>
+    <div class="card-body">
+      <div class="xyz-inputs">
+        <div class="xyz-field">
+          <label>θ1 (deg)</label>
+          <input type="number" id="t1" value="45">
+        </div>
+        <div class="xyz-field">
+          <label>θ2 (deg)</label>
+          <input type="number" id="t2" value="90">
+        </div>
+        <div class="xyz-field">
+          <label>θ3 (deg)</label>
+          <input type="number" id="t3" value="0">
+        </div>
+      </div>
+      <button class="btn btn-warn" onclick="sendSetAng()">SEND SETANG</button>
+    </div>
+  </div>
+
+  <!-- Home controls -->
+  <div class="card">
+    <div class="card-title">Home Position</div>
+    <div class="card-body">
+      <div class="xyz-inputs">
+        <div class="xyz-field">
+          <label>X (mm)</label>
+          <input type="number" id="hx" value="0">
+        </div>
+        <div class="xyz-field">
+          <label>Y (mm)</label>
+          <input type="number" id="hy" value="0">
+        </div>
+        <div class="xyz-field">
+          <label>Z (mm)</label>
+          <input type="number" id="hz" value="-200">
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="sendSetHome()">SET HOME</button>
+        <button class="btn btn-primary" onclick="send('home')">GO HOME</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick actions -->
+  <div class="card">
+    <div class="card-title">Quick Actions</div>
+    <div class="card-body">
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="send('status')">STATUS</button>
+        <button class="btn btn-secondary" onclick="send('getpos')">GETPOS</button>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="send('getconfig')">GETCONFIG</button>
+        <button class="btn btn-secondary" onclick="send('help')">HELP</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Raw command -->
+  <div class="card">
+    <div class="card-title">Raw Command</div>
+    <div class="card-body">
+      <div class="cmd-input-row">
+        <input class="cmd-input" id="rawCmd" placeholder="type command..." 
+               onkeydown="if(event.key==='Enter') sendRaw()">
+        <button class="cmd-send" onclick="sendRaw()">SEND</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── Log Panel ── -->
+<div class="log-panel">
+  <div class="log-header">
+    <div class="log-title">// Serial Log</div>
+    <button class="clear-btn" onclick="clearLog()">CLEAR</button>
+  </div>
+  <div class="log-output" id="logOutput"></div>
+</div>
+
+<script>
+let ws = null;
+let activeLeg = 0;
+let mode = 'ik';
+let sliderTimeout = null;
+
+// ── WebSocket ──────────────────────────────────────────
+function connect() {
+  const url = document.getElementById('wsUrl').value.trim();
+  if (ws) ws.close();
+
+  log('sys', `Connecting to ${url}…`);
+  ws = new WebSocket(url);
+
+  ws.onopen = () => {
+    setStatus('connected');
+    log('ok', 'Connected.');
+  };
+
+  ws.onmessage = (e) => {
+    const msg = e.data;
+    const cls = msg.startsWith('ERR') ? 'err'
+               : msg.startsWith('OK')  ? 'ok'
+               : msg.startsWith('CMD') ? 'cmd'
+               : '';
+    log(cls, msg);
+  };
+
+  ws.onclose = () => {
+    setStatus('disconnected');
+    log('err', 'Disconnected.');
+    ws = null;
+  };
+
+  ws.onerror = () => {
+    setStatus('error');
+    log('err', 'WebSocket error.');
+  };
+}
+
+function disconnect() {
+  if (ws) { ws.close(); ws = null; }
+}
+
+function send(cmd) {
+  if (ws && ws.readyState === WebSocket.OPEN) {
+    ws.send(cmd);
+    log('cmd', '→ ' + cmd);
+  } else {
+    log('err', 'Not connected. Command not sent: ' + cmd);
+  }
+}
+
+// ── UI state ──────────────────────────────────────────
+function setStatus(state) {
+  const pill = document.getElementById('statusPill');
+  const txt  = document.getElementById('statusText');
+  pill.className = 'status-pill ' + state;
+  txt.textContent = state.toUpperCase();
+}
+
+function selectLeg(n) {
+  activeLeg = n;
+  for (let i = 0; i < 4; i++) {
+    document.getElementById('leg' + i).classList.toggle('active', i === n);
+  }
+  send('setleg ' + n);
+}
+
+function setMode(m) {
+  mode = m;
+  document.getElementById('modeIK').classList.toggle('active', m === 'ik');
+  document.getElementById('modeDirect').classList.toggle('active', m === 'direct');
+  document.getElementById('ikCard').style.display     = m === 'ik'     ? 'block' : 'none';
+  document.getElementById('directCard').style.display = m === 'direct' ? 'block' : 'none';
+}
+
+// ── Slider handling (debounced) ───────────────────────
+function onSlider() {
+  const x = document.getElementById('xSlider').value;
+  const y = document.getElementById('ySlider').value;
+  const z = document.getElementById('zSlider').value;
+  document.getElementById('xVal').textContent = x;
+  document.getElementById('yVal').textContent = y;
+  document.getElementById('zVal').textContent = z;
+  // Debounce — only send after 80ms of no movement
+  clearTimeout(sliderTimeout);
+  sliderTimeout = setTimeout(() => sendSetPos(), 80);
+}
+
+// ── Command senders ───────────────────────────────────
+function sendSetPos() {
+  const x = document.getElementById('xSlider').value;
+  const y = document.getElementById('ySlider').value;
+  const z = document.getElementById('zSlider').value;
+  send(`setpos ${x} ${y} ${z}`);
+}
+
+function sendTestIK() {
+  const x = document.getElementById('xSlider').value;
+  const y = document.getElementById('ySlider').value;
+  const z = document.getElementById('zSlider').value;
+  send(`testik ${x} ${y} ${z}`);
+}
+
+function sendSetAng() {
+  const t1 = document.getElementById('t1').value;
+  const t2 = document.getElementById('t2').value;
+  const t3 = document.getElementById('t3').value;
+  send(`setang ${t1} ${t2} ${t3}`);
+}
+
+function sendSetHome() {
+  const x = document.getElementById('hx').value;
+  const y = document.getElementById('hy').value;
+  const z = document.getElementById('hz').value;
+  send(`sethome ${x} ${y} ${z}`);
+}
+
+function sendRaw() {
+  const input = document.getElementById('rawCmd');
+  const cmd = input.value.trim();
+  if (cmd) { send(cmd); input.value = ''; }
+}
+
+// ── Log ───────────────────────────────────────────────
+function log(cls, msg) {
+  const out = document.getElementById('logOutput');
+  const now = new Date();
+  const ts  = now.toTimeString().slice(0,8) + '.' +
+              String(now.getMilliseconds()).padStart(3,'0');
+  const line = document.createElement('div');
+  line.className = 'log-line';
+  line.innerHTML = `<span class="log-ts">${ts}</span><span class="log-msg ${cls}">${msg}</span>`;
+  out.appendChild(line);
+  out.scrollTop = out.scrollHeight;
+}
+
+function clearLog() {
+  document.getElementById('logOutput').innerHTML = '';
+}
+
+// Init log
+log('sys', 'Debug UI ready. Enter ESP32 IP and connect.');
+log('sys', 'Default AP IP is usually 192.168.4.1');
+</script>
+</body>
+</html>
