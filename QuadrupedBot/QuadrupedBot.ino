@@ -27,6 +27,9 @@ void loop()
                 Serial.println(theta1_out[i]);
                 Serial.println(theta2_out[i]);
             }
+            theta1_out[0] = 90-theta1_out[0];
+            theta2_out[0] = 90+theta2_out[0];
+            theta3_out[0] = 90-theta3_out[0];         
             writeServos(theta1_out, theta2_out, theta3_out);
         }
         else

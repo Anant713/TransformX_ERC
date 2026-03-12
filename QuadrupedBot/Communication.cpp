@@ -23,7 +23,7 @@ bool receiveCommand()
         theta2_out[2] = 0;
         theta2_out[3] = 0;
 
-        theta3_out[0] = 90;
+        theta3_out[0] = 0;
         theta3_out[1] = 0;
         theta3_out[2] = 0;
         theta3_out[3] = 0;      

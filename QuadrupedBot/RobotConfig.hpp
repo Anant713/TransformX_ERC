@@ -30,4 +30,7 @@ void initRobotConfig();
 
 // ------------ Flag if command is for forward or inverse kinematics-----------
 extern bool inv;
+
+// --------------- Servo angle offsets
+// extern float angOffsets[NUM_LEGS][3];
 #endif

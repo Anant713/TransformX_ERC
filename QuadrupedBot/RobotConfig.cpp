@@ -4,8 +4,8 @@ float a = 60.0;
 float b = 95.0;
 float c = 180.0;
 
-float xl[NUM_LEGS] = {  80,  80, -80, -80 };
-float yl[NUM_LEGS] = {  60, -60,  60, -60 };
+float xl[NUM_LEGS] = {  0,  80, -80, -80 };
+float yl[NUM_LEGS] = {  0, -60,  60, -60 };
 float zl[NUM_LEGS] = {   0,   0,   0,   0 };
 
 int sideSign[NUM_LEGS] = { 1, -1, 1, -1 };
@@ -24,3 +24,6 @@ void initRobotConfig(){
 };
 
 bool inv = false;
+
+// float angOffsets[NUM_LEGS][3];
+// angOffsets[0] = [90,90,]

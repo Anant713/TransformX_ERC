@@ -15,11 +15,11 @@ bool inverseKinematics(float &x, float &y, float &z,
 
     float D = ((r - a)*(r - a) + z*z - b*b - c*c) / (2*b*c);
     
-    if (D > 1.0 || D < -1.0)
+    if (D > 1.0 || D < -1.0){
         Serial.println("D value out of bound ( that is theta 2)");
         Serial.println(D);
         return false;
-    
+    }
     theta2 = atan2(sqrt(1 - D*D), D);
 
     theta1 = atan2(-z, r - a)
@@ -60,7 +60,7 @@ bool inv_ken_global(float legEndPos[4][3], bool &inv)
         }
 
         theta3_out[i] *= sideSign[i];
-        theta2_out[i] = 180 - theta2_out[i]; // Because the last servo has 180 deg down 
+        // theta2_out[i] = 180 - theta2_out[i]; // Because the last servo has 180 deg down 
 
     }
 
