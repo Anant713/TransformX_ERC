@@ -16,7 +16,7 @@ This repository contains the control system for a quadruped robot, organized int
 ## Commands
 
 ### Forward Kinematics
-Set joint angles from top to bottom on the leg:
+Set joint angles from top to bottom on the leg ( this is for front left leg, theta1 and theta2 are used as per convention in inverse kinematics i.e. measured from the previous leg):
 ```
 setang <theta3> <theta1> <theta2>
 ```
