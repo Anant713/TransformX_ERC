@@ -20,13 +20,13 @@ bool inverseKinematics(float &x, float &y, float &z,
         Serial.println(D);
         return false;
     }
-    theta2 = atan2(sqrt(1 - D*D), D);
+    theta3 = atan2(sqrt(1 - D*D), D);
 
-    theta1 = atan2(-z, r - a)
+    theta2 = atan2(-z, r - a)
              - atan2(c*sin(theta2),
                      b + c*cos(theta2));
 
-    theta3 = atan2(x, y);
+    theta1 = atan2(x, y);
 
     // convert to degrees
     theta1 *= 180.0 / PI;
@@ -59,8 +59,7 @@ bool inv_ken_global(float legEndPos[4][3], bool &inv)
                 return false;
         }
 
-        theta3_out[i] *= sideSign[i];
-        // theta2_out[i] = 180 - theta2_out[i]; // Because the last servo has 180 deg down 
+        theta1_out[i] *= sideSign[i];
 
     }
 

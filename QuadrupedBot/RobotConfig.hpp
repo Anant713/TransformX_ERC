@@ -2,7 +2,7 @@
 #define ROBOT_CONFIG_HPP
 
 #define NUM_LEGS 4
-
+#define NUM_JOINTS 3
 // -------- Link lengths (mm) --------
 extern float a;
 extern float b;
@@ -31,6 +31,8 @@ void initRobotConfig();
 // ------------ Flag if command is for forward or inverse kinematics-----------
 extern bool inv;
 
-// --------------- Servo angle offsets
+//----------- Servo offsets and directions matrices ([Angle from IK]*[Direction/sign matrix]+[Offset matrix]) ------------------
+extern float servoAngSigns[NUM_LEGS][3];
+extern float servoOffsets[NUM_LEGS][3];
 // extern float angOffsets[NUM_LEGS][3];
 #endif

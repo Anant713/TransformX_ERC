@@ -23,14 +23,17 @@ void loop()
         if (inv_ken_global(legEndPos, inv))
         {
             for ( int i=0; i<NUM_LEGS ; i++){
-                Serial.println(theta3_out[i]);
                 Serial.println(theta1_out[i]);
                 Serial.println(theta2_out[i]);
+                Serial.println(theta3_out[i]);
             }
-            theta1_out[0] = 90-theta1_out[0];
-            theta2_out[0] = 90+theta2_out[0];
-            theta3_out[0] = 90-theta3_out[0];         
-            writeServos(theta1_out, theta2_out, theta3_out);
+            for ( int i=0; i<NUM_LEGS ; i++){
+            theta1_out[i] = servoOffsets[i][0]+theta1_out[i]*servoAngSigns[NUM_LEGS][0]; 
+            theta2_out[i] = servoOffsets[i][1]+theta2_out[i]*servoAngSigns[NUM_LEGS][1];
+            theta3_out[i] = servoOffsets[i][2]+theta3_out[i]*servoAngSigns[NUM_LEGS][2];    
+            }
+              
+            writeServosDriver(theta1_out, theta2_out, theta3_out);
         }
         else
         {

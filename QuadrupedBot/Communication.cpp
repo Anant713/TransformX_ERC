@@ -13,7 +13,7 @@ bool receiveCommand()
 
     if (cmd == "home")
     {
-        theta1_out[0] = 45;
+        theta1_out[0] = 0;
         theta1_out[1] = 0;
         theta1_out[2] = 0;
         theta1_out[3] = 0;
@@ -23,7 +23,7 @@ bool receiveCommand()
         theta2_out[2] = 0;
         theta2_out[3] = 0;
 
-        theta3_out[0] = 0;
+        theta3_out[0] = 45;
         theta3_out[1] = 0;
         theta3_out[2] = 0;
         theta3_out[3] = 0;      
@@ -62,8 +62,21 @@ bool receiveCommand()
     {
         //Serial.println("You just set a custom position");
         //float theta3, theta1, theta2;
-        sscanf(cmd.c_str(), "setang %f %f %f", &theta3_out[0], &theta1_out[0], &theta2_out[0]);
+        sscanf(cmd.c_str(), "setang %f %f %f", &theta1_out[0], &theta2_out[0], &theta3_out[0]);
+        //theta1_out[0] = 0;
+        theta1_out[1] = 180 - theta1_out[0];
+        theta1_out[2] = theta1_out[0];
+        theta1_out[3] = 180 - theta1_out[0];
 
+        //theta2_out[0] = 45;
+        theta2_out[1] = -theta2_out[0];
+        theta2_out[2] = theta2_out[0];
+        theta2_out[3] = -theta2_out[0];
+
+        //theta3_out[0] = 45;
+        theta3_out[1] = -theta3_out[0];
+        theta3_out[2] = theta3_out[0];
+        theta3_out[3] = -theta3_out[0];       
         // for (int i = 0; i < NUM_LEGS; i++)
         // {
         //     legEndPos[i][0] = x;
