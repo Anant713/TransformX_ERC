@@ -23,8 +23,8 @@ bool inverseKinematics(float &x, float &y, float &z,
     theta3 = atan2(sqrt(1 - D*D), D);
 
     theta2 = atan2(-z, r - a)
-             - atan2(c*sin(theta2),
-                     b + c*cos(theta2));
+             - atan2(c*sin(theta3),
+                     b + c*cos(theta3));
 
     theta1 = atan2(x, y);
 
