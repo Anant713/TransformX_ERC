@@ -1,0 +1,1104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="transformx_pleasework_Icantdothisonemoretime">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.165689541532198 -0.211687990716395 -0.191199026144779"
+        rpy="0 0 0" />
+      <mass
+        value="1.709262720199" />
+      <inertia
+        ixx="0.0164005131114753"
+        ixy="8.67763731182866E-10"
+        ixz="2.83782768390917E-17"
+        iyy="0.0122637029850296"
+        iyz="-8.10850652009564E-18"
+        izz="0.0278869318367325" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="shoulder 1">
+    <inertial>
+      <origin
+        xyz="0.0318454062837943 0.0047856519619595 -0.0200419403573531"
+        rpy="0 0 0" />
+      <mass
+        value="0.0508037942000163" />
+      <inertia
+        ixx="1.63327731240818E-05"
+        ixy="-1.26744843280266E-07"
+        ixz="-7.51812215657479E-07"
+        iyy="1.59782056402178E-05"
+        iyz="1.14812726349845E-07"
+        izz="8.42774784291429E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/shoulder 1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/shoulder 1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="shoulder_1_joint"
+    type="revolute">
+    <origin
+      xyz="0.30069 0.14924 -0.11584"
+      rpy="1.5708 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="shoulder 1" />
+    <axis
+      xyz="-0 -0 -1" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="50"
+      velocity="5" />
+  </joint>
+  <link
+    name="femur 1">
+    <inertial>
+      <origin
+        xyz="0.0329261295956635 -0.0184498092229799 -0.0133553072182594"
+        rpy="0 0 0" />
+      <mass
+        value="0.0189108850293239" />
+      <inertia
+        ixx="9.27763861443685E-06"
+        ixy="3.58171351584002E-07"
+        ixz="2.16178884998416E-06"
+        iyy="6.71880769007828E-06"
+        iyz="2.92359103361762E-07"
+        izz="1.33335643386606E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/femur 1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/femur 1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="femur_top_1_joint"
+    type="revolute">
+    <origin
+      xyz="0.036825 0.026574 -0.00885"
+      rpy="0 0 0" />
+    <parent
+      link="shoulder 1" />
+    <child
+      link="femur 1" />
+    <axis
+      xyz="0.13153 -0.99131 -0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="50"
+      velocity="5" />
+  </joint>
+  <link
+    name="leg 1">
+    <inertial>
+      <origin
+        xyz="-0.00126248785702626 -0.032976267945343 -0.0501049671892521"
+        rpy="0 0 0" />
+      <mass
+        value="0.0781909506997137" />
+      <inertia
+        ixx="5.23182705989308E-05"
+        ixy="1.77876898989881E-07"
+        ixz="1.92161201726759E-07"
+        iyy="4.6489340013216E-05"
+        iyz="1.18031051385711E-06"
+        izz="1.42906403572765E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/leg 1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/leg 1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="leg_1_joint"
+    type="revolute">
+    <origin
+      xyz="0.061217 0.0081223 -0.027253"
+      rpy="0 0 0" />
+    <parent
+      link="femur 1" />
+    <child
+      link="leg 1" />
+    <axis
+      xyz="-0.13153 0.99131 -0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="50"
+      velocity="5" />
+  </joint>
+  <link
+    name="wheel 1">
+    <inertial>
+      <origin
+        xyz="0.00991312694108465 0.00131526204611054 -5.55111512312578E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.0307487077587976" />
+      <inertia
+        ixx="2.62352716039877E-05"
+        ixy="1.65271291963172E-06"
+        ixz="-1.46992579790091E-21"
+        iyy="1.39980582347954E-05"
+        iyz="-8.28522357667721E-21"
+        izz="1.37787782246405E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/wheel 1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/wheel 1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wheel_1_joint"
+    type="continuous">
+    <origin
+      xyz="0.01825 -0.0576 -0.093196"
+      rpy="0 0 0" />
+    <parent
+      link="leg 1" />
+    <child
+      link="wheel 1" />
+    <axis
+      xyz="0.99131 0.13153 0" />
+    <limit
+      effort="100"
+      velocity="10" />
+  </joint>
+  <link
+    name="shoulder 2">
+    <inertial>
+      <origin
+        xyz="0.0320106875852278 -0.00351400766409776 -0.0195419403009889"
+        rpy="0 0 0" />
+      <mass
+        value="0.0508037942979783" />
+      <inertia
+        ixx="1.62469566357213E-05"
+        ixy="-1.97806835937993E-07"
+        ixz="-6.97483263646972E-07"
+        iyy="1.60640222315046E-05"
+        iyz="3.03184029580422E-07"
+        izz="8.42774781210198E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/shoulder 2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/shoulder 2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="shoulder_2_joint"
+    type="revolute">
+    <origin
+      xyz="0.30069 0.14974 -0.30754"
+      rpy="1.5708 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="shoulder 2" />
+    <axis
+      xyz="-0 -0 -1" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="50"
+      velocity="5" />
+  </joint>
+  <link
+    name="femur 2">
+    <inertial>
+      <origin
+        xyz="0.0272714575713212 -0.0262735361130984 -0.012994560533478"
+        rpy="0 0 0" />
+      <mass
+        value="0.0189108850293239" />
+      <inertia
+        ixx="9.23687981925085E-06"
+        ixy="-3.14649764079764E-07"
+        ixz="2.11677276231323E-06"
+        iyy="6.70818212785748E-06"
+        iyz="-2.63728594816001E-07"
+        izz="1.33849486960672E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/femur 2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/femur 2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="femur_2_joint"
+    type="revolute">
+    <origin
+      xyz="0.042394 0.016278 -0.00835"
+      rpy="0 0 0" />
+    <parent
+      link="shoulder 2" />
+    <child
+      link="femur 2" />
+    <axis
+      xyz="-0.12625 -0.992 -0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="50"
+      velocity="5" />
+  </joint>
+  <link
+    name="leg 2">
+    <inertial>
+      <origin
+        xyz="-0.00965028074009094 -0.031557883143076 -0.0501049578987215"
+        rpy="0 0 0" />
+      <mass
+        value="0.0781909290659214" />
+      <inertia
+        ixx="5.20252846723673E-05"
+        ixy="-1.28591198635855E-06"
+        ixz="4.87500505745011E-07"
+        iyy="4.67823202534468E-05"
+        iyz="1.09197694794751E-06"
+        izz="1.42906363634045E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/leg 2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/leg 2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="leg_2_joint"
+    type="revolute">
+    <origin
+      xyz="0.061577 -0.0078371 -0.026515"
+      rpy="0 0 0" />
+    <parent
+      link="femur 2" />
+    <child
+      link="leg 2" />
+    <axis
+      xyz="-0.12625 -0.992 -0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="50"
+      velocity="5" />
+  </joint>
+  <link
+    name="wheel 2">
+    <inertial>
+      <origin
+        xyz="0.0100191799252696 -0.00127516023505853 -1.11022302462516E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.0307487077587974" />
+      <inertia
+        ixx="2.62525005039067E-05"
+        ixy="-1.58755454561357E-06"
+        ixz="-1.49752810408348E-22"
+        iyy="1.39808293348762E-05"
+        iyz="-1.15352921359934E-20"
+        izz="1.37787782246404E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/wheel 2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/wheel 2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wheel_2_joint"
+    type="continuous">
+    <origin
+      xyz="0.0028202 -0.060339 -0.093196"
+      rpy="0 0 0" />
+    <parent
+      link="leg 2" />
+    <child
+      link="wheel 2" />
+    <axis
+      xyz="0.992 -0.12625 0" />
+    <limit
+      effort="100"
+      velocity="10" />
+  </joint>
+  <link
+    name="shoulder 3">
+    <inertial>
+      <origin
+        xyz="-0.0316994081520912 -0.00567272579213755 -0.0200419389911337"
+        rpy="0 0 0" />
+      <mass
+        value="0.0508037978102054" />
+      <inertia
+        ixx="1.62194028036229E-05"
+        ixy="2.08348698754896E-07"
+        ixz="6.75361105461999E-07"
+        iyy="1.60915797862573E-05"
+        iyz="3.49700663897318E-07"
+        izz="8.42774798049107E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/shoulder 3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/shoulder 3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="shoulder_3_joint"
+    type="revolute">
+    <origin
+      xyz="0.03069 0.14924 -0.11584"
+      rpy="1.5708 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="shoulder 3" />
+    <axis
+      xyz="-0 -0 -1" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="50"
+      velocity="5" />
+  </joint>
+  <link
+    name="femur 3">
+    <inertial>
+      <origin
+        xyz="-0.0270764495805481 -0.0283832142574923 -0.00988444168912075"
+        rpy="0 0 0" />
+      <mass
+        value="0.0189108850293239" />
+      <inertia
+        ixx="8.85886123558425E-06"
+        ixy="4.25476639277679E-07"
+        ixz="-1.71591807101384E-06"
+        iyy="6.7523536148214E-06"
+        iyz="-3.50147161594457E-07"
+        izz="1.37187957927701E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/femur 3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/femur 3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="femur_3_joint"
+    type="revolute">
+    <origin
+      xyz="-0.043399 0.013371 -0.00885"
+      rpy="0 0 0" />
+    <parent
+      link="shoulder 3" />
+    <child
+      link="femur 3" />
+    <axis
+      xyz="0.19311 -0.98118 -0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="50"
+      velocity="5" />
+  </joint>
+  <link
+    name="leg 3">
+    <inertial>
+      <origin
+        xyz="0.0117642932992974 -0.0308323701527173 -0.0501052265561902"
+        rpy="0 0 0" />
+      <mass
+        value="0.0781909496583686" />
+      <inertia
+        ixx="5.18276029442421E-05"
+        ixy="1.62814884292945E-06"
+        ixz="-5.60483261413676E-07"
+        iyy="4.6980025148377E-05"
+        iyz="1.05644612097717E-06"
+        izz="1.42906345353717E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/leg 3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/leg 3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="leg_3_joint"
+    type="revolute">
+    <origin
+      xyz="-0.063596 -0.012517 -0.020571"
+      rpy="0 0 0" />
+    <parent
+      link="femur 3" />
+    <child
+      link="leg 3" />
+    <axis
+      xyz="0.19311 -0.98118 -0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="50"
+      velocity="5" />
+  </joint>
+  <link
+    name="wheel 3">
+    <inertial>
+      <origin
+        xyz="-0.00981176823512707 -0.00193111472975752 -9.93094495527203E-14"
+        rpy="0 0 0" />
+      <mass
+        value="0.0307487077587975" />
+      <inertia
+        ixx="2.59818461532564E-05"
+        ixy="2.40176119741768E-06"
+        ixz="6.29610663897689E-21"
+        iyy="1.42514836855267E-05"
+        iyz="5.88299898935685E-22"
+        izz="1.37787782246405E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/wheel 3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/wheel 3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wheel_3_joint"
+    type="continuous">
+    <origin
+      xyz="0.0011724 -0.060411 -0.093196"
+      rpy="0 0 0" />
+    <parent
+      link="leg 3" />
+    <child
+      link="wheel 3" />
+    <axis
+      xyz="-0.98118 -0.19311 0" />
+    <limit
+      effort="100"
+      velocity="10" />
+  </joint>
+  <link
+    name="shoulder 4">
+    <inertial>
+      <origin
+        xyz="-0.0315697086678641 0.00635498196051221 -0.0200419391145879"
+        rpy="0 0 0" />
+      <mass
+        value="0.050803797524623" />
+      <inertia
+        ixx="1.6344430564251E-05"
+        ixy="1.08608204912065E-07"
+        ixz="7.56570771019836E-07"
+        iyy="1.59665517050879E-05"
+        iyz="7.74848517856312E-08"
+        izz="8.42774799810283E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/shoulder 4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/shoulder 4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="shoulder_4_joint"
+    type="revolute">
+    <origin
+      xyz="0.03069 0.14924 -0.30754"
+      rpy="1.5708 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="shoulder 4" />
+    <axis
+      xyz="-0 -0 -1" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="50"
+      velocity="5" />
+  </joint>
+  <link
+    name="femur 4">
+    <inertial>
+      <origin
+        xyz="-0.0276353518852243 -0.00460567338370849 -0.0114645768529585"
+        rpy="0 0 0" />
+      <mass
+        value="0.0189108850293239" />
+      <inertia
+        ixx="9.01001320621366E-06"
+        ixy="-4.34131806068347E-07"
+        ixz="-1.90858462728669E-06"
+        iyy="6.75019493769525E-06"
+        iyz="3.37442770671237E-07"
+        izz="1.35698024992668E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/femur 4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/femur 4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="femur_4_joint"
+    type="revolute">
+    <origin
+      xyz="-0.042383 0.016309 -0.00885"
+      rpy="0 0 0" />
+    <parent
+      link="shoulder 4" />
+    <child
+      link="femur 4" />
+    <axis
+      xyz="0.12553 -0.99209 -0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="50"
+      velocity="5" />
+  </joint>
+  <link
+    name="leg 4">
+    <inertial>
+      <origin
+        xyz="-0.000370197689531421 -0.0329984332713453 -0.0501052390028605"
+        rpy="0 0 0" />
+      <mass
+        value="0.0781909623054063" />
+      <inertia
+        ixx="5.22864142045997E-05"
+        ixy="-4.650225434174E-07"
+        ixz="-1.33726041151468E-07"
+        iyy="4.65212155394689E-05"
+        iyz="1.18842695455198E-06"
+        izz="1.42906363699222E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/leg 4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/leg 4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="leg_4_joint"
+    type="revolute">
+    <origin
+      xyz="-0.055335 0.023472 -0.023465"
+      rpy="0 0 0" />
+    <parent
+      link="femur 4" />
+    <child
+      link="leg 4" />
+    <axis
+      xyz="-0.1804 -0.98359 -0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="50"
+      velocity="5" />
+  </joint>
+  <link
+    name="wheel 4">
+    <inertial>
+      <origin
+        xyz="-0.00983593497834759 0.00180399088182837 4.9960036108132E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.0307487077587974" />
+      <inertia
+        ixx="2.60420333869442E-05"
+        ixy="-2.2491812464169E-06"
+        ixz="-5.67124398371733E-21"
+        iyy="1.41912964518387E-05"
+        iyz="-1.49217243273457E-20"
+        izz="1.37787782246405E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/wheel 4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://my_bot_description/meshes/wheel 4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wheel_4_joint"
+    type="continuous">
+    <origin
+      xyz="-0.021077 -0.056627 -0.093196"
+      rpy="0 0 0" />
+    <parent
+      link="leg 4" />
+    <child
+      link="wheel 4" />
+    <axis
+      xyz="-0.98359 0.1804 0" />
+    <limit
+      effort="100"
+      velocity="10" />
+  </joint>
+  <gazebo reference="base_link">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+  <gazebo reference="shoulder 1">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+  <gazebo reference="wheel 1">
+    <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo reference="wheel 1">
+    <mu1>1.5</mu1>
+    <mu2>1.5</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+    <minDepth>0.001</minDepth>
+  </gazebo>
+  <gazebo reference="wheel 2">
+    <mu1>1.5</mu1>
+    <mu2>1.5</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+    <minDepth>0.001</minDepth>
+  </gazebo>
+  <gazebo reference="wheel 3">
+    <mu1>1.5</mu1>
+    <mu2>1.5</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+    <minDepth>0.001</minDepth>
+  </gazebo>
+  <gazebo reference="wheel 4">
+    <mu1>1.5</mu1>
+    <mu2>1.5</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+    <minDepth>0.001</minDepth>
+  </gazebo>
+  <gazebo>
+    <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+      <parameters>$(find my_bot_description)/config/ros2_control.yaml</parameters>
+    </plugin>
+  </gazebo>
+  <ros2_control name="GazeboSimSystem" type="system">
+    <hardware>
+      <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+    </hardware>
+    
+    <!-- Position-controlled leg joints -->
+    <joint name="shoulder_1_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="femur_top_1_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="leg_1_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="shoulder_2_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="femur_2_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="leg_2_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="shoulder_3_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="femur_3_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="leg_3_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="shoulder_4_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="femur_4_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="leg_4_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="wheel_1_joint">
+      <command_interface name="velocity">
+        <param name="min">-10</param>
+        <param name="max">10</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <joint name="wheel_2_joint">
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="wheel_3_joint">
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="wheel_4_joint">
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+  </ros2_control>
+</robot>
