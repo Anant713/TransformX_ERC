@@ -1,18 +1,15 @@
 #pragma once
 
-constexpr int NUM_LEGS = 4;
-constexpr int NUM_JOINTS = 3;
+#include "RobotConfig.hpp"
 
-// -------- Link lengths (mm) --------
-extern float a;
-extern float b;
-extern float c;
 
+extern float theta1_out[NUM_LEGS];
+extern float theta2_out[NUM_LEGS];
+extern float theta3_out[NUM_LEGS];
 // -------- Leg base positions in bot frame --------
 extern float xl[NUM_LEGS];
 extern float yl[NUM_LEGS];
 extern float zl[NUM_LEGS];
-
 // -------- Side sign (+1 right, -1 left) --------
 extern int sideSign[NUM_LEGS];
 

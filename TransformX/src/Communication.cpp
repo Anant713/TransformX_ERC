@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include "RobotConfig.hpp"
 #include "Communication.hpp"
-#include "Kinematics.hpp"
-#include "ServoController.hpp"
+#include "RobotState.hpp"
+
 
 CommandType receiveCommand()
 {

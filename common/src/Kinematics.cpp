@@ -2,8 +2,7 @@
 #include "RobotConfig.hpp"
 #include <cmath>
 
-namespace transformx
-{
+
     bool inverseKinematics(
         float x, float y, float z,
         float a, float b, float c,
@@ -37,12 +36,11 @@ namespace transformx
     }
 
     bool inv_kin_global(
-        const float legEndPos[NUM_LEGS][3],
+        const float legEndPos[NUM_LEGS][NUM_JOINTS],
         const float xl[NUM_LEGS],
         const float yl[NUM_LEGS],
         const float zl[NUM_LEGS],
-        const float sideSign[NUM_LEGS],
-        float a, float b, float c,
+        const int sideSign[NUM_LEGS],
         float theta1_out[NUM_LEGS],
         float theta2_out[NUM_LEGS],
         float theta3_out[NUM_LEGS])
@@ -70,4 +68,3 @@ namespace transformx
 
         return true;
     }
-}

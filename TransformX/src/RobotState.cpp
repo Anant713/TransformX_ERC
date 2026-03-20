@@ -1,8 +1,6 @@
 #include "RobotConfig.hpp"
+#include "RobotState.hpp"
 
-float a = 60.0f;
-float b = 95.0f;
-float c = 180.0f;
 
 float xl[NUM_LEGS] = {0.0f, 0.0f, 0.0f, 0.0f};
 float yl[NUM_LEGS] = {0.0f, 0.0f, 0.0f, 0.0f};
@@ -25,6 +23,10 @@ float servoOffsets[NUM_LEGS][NUM_JOINTS] = {
 };
 
 float legEndPos[NUM_LEGS][NUM_JOINTS] = {0.0f};
+
+float theta1_out[NUM_LEGS]= {0.0f};
+float theta2_out[NUM_LEGS] = {0.0f};
+float theta3_out[NUM_LEGS] = {0.0f};
 
 void initRobotConfig()
 {

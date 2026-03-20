@@ -4,6 +4,8 @@
 #include "ServoController.hpp"
 #include "Communication.hpp"
 #include "HardwareConfig.hpp"
+#include "RobotState.hpp"
+
 
 static void printJointAngles()
 {
@@ -54,7 +56,7 @@ void loop()
 
     if (cmdType == CMD_SET_POS)
     {
-        success = inv_ken_global(legEndPos);
+        success = inv_kin_global(legEndPos,xl, yl, zl, sideSign, theta1_out, theta2_out, theta3_out);
         if (!success)
         {
             Serial.println("Unreachable position, IK not done!");
