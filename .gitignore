@@ -1,0 +1,28 @@
+# -------- PlatformIO --------
+.pio/
+.pioenvs/
+.piolibdeps/
+
+# -------- Build files --------
+*.o
+*.obj
+*.a
+*.so
+*.dll
+*.elf
+*.bin
+*.hex
+*.map
+*.d
+
+# PlatformIO cache 
+.pioenvs/
+.piolibdeps/
+
+# VSCode
+.vscode/
+
+# ROS build artifacts
+quadruped_ws/build/
+quadruped_ws/install/
+quadruped_ws/log/

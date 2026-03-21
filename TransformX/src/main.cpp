@@ -36,6 +36,7 @@ static void applyServoMapping()
 void setup()
 {
     Serial.begin(115200);
+    Serial.setTimeout(5000); // Set timeout for Serial read operations
     initServos();
 
     Serial.println("Quadruped Ready.");
@@ -56,7 +57,7 @@ void loop()
 
     if (cmdType == CMD_SET_POS)
     {
-        success = inv_kin_global(legEndPos,xl, yl, zl, sideSign, theta1_out, theta2_out, theta3_out);
+        success = my_bot_ik::inv_kin_global(legEndPos,xl, yl, zl, sideSign, theta1_out, theta2_out, theta3_out);
         if (!success)
         {
             Serial.println("Unreachable position, IK not done!");

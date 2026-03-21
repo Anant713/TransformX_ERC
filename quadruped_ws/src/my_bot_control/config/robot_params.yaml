@@ -1,0 +1,42 @@
+# robot_params.yaml
+# ------------------
+# Parameters loaded by ik_solver_node.py
+#
+# Link lengths match RobotConfig.cpp exactly (units: mm).
+# Shoulder origins are extracted from the URDF joint origins (m → mm).
+#
+# Shoulder joint origins from URDF (xyz in metres, converted to mm here):
+#   shoulder_1_joint: 0.30069, 0.14924, -0.11584  → (300.69, 149.24, -115.84)
+#   shoulder_2_joint: 0.30069, 0.14974, -0.30754  → (300.69, 149.74, -307.54)
+#   shoulder_3_joint: 0.03069, 0.14924, -0.11584  → ( 30.69, 149.24, -115.84)
+#   shoulder_4_joint: 0.03069, 0.14924, -0.30754  → ( 30.69, 149.24, -307.54)
+#
+# side_sign: +1 for the right-side legs (1, 3), -1 for left-side (2, 4).
+# This mirrors the y-component and theta1 to handle bilateral symmetry,
+# matching the sideSign logic in inv_kin_global() from Kinematics.cpp.
+
+ik_solver:
+  ros__parameters:
+    execution_time_sec: 0.5   # seconds to reach the commanded position
+
+robot:
+  ros__parameters:
+    # Link lengths [mm] — from RobotConfig.cpp
+    link_a: 60.0
+    link_b: 95.0
+    link_c: 180.0
+
+    # Shoulder (leg origin) positions in body frame [mm]
+    # Used by inv_kin_global() to transform foot targets to local leg frames.
+    shoulder_origins:
+      leg_1: [300.69, 149.24, -115.84]   # front-right
+      leg_2: [300.69, 149.74, -307.54]   # front-left
+      leg_3: [ 30.69, 149.24, -115.84]   # rear-right
+      leg_4: [ 30.69, 149.24, -307.54]   # rear-left
+
+    # Side sign: +1 right side, -1 left side
+    side_sign:
+      leg_1:  1
+      leg_2: -1
+      leg_3:  1
+      leg_4: -1

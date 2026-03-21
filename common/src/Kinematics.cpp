@@ -2,10 +2,10 @@
 #include "RobotConfig.hpp"
 #include <cmath>
 
-
+namespace my_bot_ik
+{
     bool inverseKinematics(
         float x, float y, float z,
-        float a, float b, float c,
         float& theta1,
         float& theta2,
         float& theta3)
@@ -55,7 +55,6 @@
 
             const bool reachable = inverseKinematics(
                 x_local, y_local, z_local,
-                a, b, c,
                 theta1_out[i], theta2_out[i], theta3_out[i]);
 
             if (!reachable)
@@ -68,3 +67,4 @@
 
         return true;
     }
+}
