@@ -45,7 +45,7 @@
     </collision>
   </link>
   <link
-    name="shoulder 1">
+    name="shoulder_1">
     <inertial>
       <origin
         xyz="0.0318454062837943 0.0047856519619595 -0.0200419403573531"
@@ -103,7 +103,7 @@
       velocity="5" />
   </joint>
   <link
-    name="femur 1">
+    name="femur_1">
     <inertial>
       <origin
         xyz="0.0329261295956635 -0.0184498092229799 -0.0133553072182594"
@@ -219,7 +219,7 @@
       velocity="5" />
   </joint>
   <link
-    name="wheel 1">
+    name="wheel_1">
     <inertial>
       <origin
         xyz="0.00991312694108465 0.00131526204611054 -5.55111512312578E-17"
@@ -275,7 +275,7 @@
       velocity="10" />
   </joint>
   <link
-    name="shoulder 2">
+    name="shoulder_2">
     <inertial>
       <origin
         xyz="0.0320106875852278 -0.00351400766409776 -0.0195419403009889"
@@ -333,7 +333,7 @@
       velocity="5" />
   </joint>
   <link
-    name="femur 2">
+    name="femur_2">
     <inertial>
       <origin
         xyz="0.0272714575713212 -0.0262735361130984 -0.012994560533478"
@@ -449,7 +449,7 @@
       velocity="5" />
   </joint>
   <link
-    name="wheel 2">
+    name="wheel_2">
     <inertial>
       <origin
         xyz="0.0100191799252696 -0.00127516023505853 -1.11022302462516E-16"
@@ -505,7 +505,7 @@
       velocity="10" />
   </joint>
   <link
-    name="shoulder 3">
+    name="shoulder_3">
     <inertial>
       <origin
         xyz="-0.0316994081520912 -0.00567272579213755 -0.0200419389911337"
@@ -563,7 +563,7 @@
       velocity="5" />
   </joint>
   <link
-    name="femur 3">
+    name="femur_3">
     <inertial>
       <origin
         xyz="-0.0270764495805481 -0.0283832142574923 -0.00988444168912075"
@@ -679,7 +679,7 @@
       velocity="5" />
   </joint>
   <link
-    name="wheel 3">
+    name="wheel_3">
     <inertial>
       <origin
         xyz="-0.00981176823512707 -0.00193111472975752 -9.93094495527203E-14"
@@ -735,7 +735,7 @@
       velocity="10" />
   </joint>
   <link
-    name="shoulder 4">
+    name="shoulder_4">
     <inertial>
       <origin
         xyz="-0.0315697086678641 0.00635498196051221 -0.0200419391145879"
@@ -793,7 +793,7 @@
       velocity="5" />
   </joint>
   <link
-    name="femur 4">
+    name="femur_4">
     <inertial>
       <origin
         xyz="-0.0276353518852243 -0.00460567338370849 -0.0114645768529585"
@@ -909,7 +909,7 @@
       velocity="5" />
   </joint>
   <link
-    name="wheel 4">
+    name="wheel_4">
     <inertial>
       <origin
         xyz="-0.00983593497834759 0.00180399088182837 4.9960036108132E-16"

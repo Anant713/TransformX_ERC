@@ -8,7 +8,7 @@ namespace my_bot_ik
         float x, float y, float z,
         float& theta1,
         float& theta2,
-        float& theta3)
+        float& theta3, const float& a, const float& b, const float& c)
     {
         const float r = std::sqrt(x * x + y * y);
 
@@ -43,7 +43,7 @@ namespace my_bot_ik
         const int sideSign[NUM_LEGS],
         float theta1_out[NUM_LEGS],
         float theta2_out[NUM_LEGS],
-        float theta3_out[NUM_LEGS])
+        float theta3_out[NUM_LEGS], const float& a, const float& b, const float& c)
     {
         for (int i = 0; i < NUM_LEGS; i++)
         {
@@ -55,7 +55,7 @@ namespace my_bot_ik
 
             const bool reachable = inverseKinematics(
                 x_local, y_local, z_local,
-                theta1_out[i], theta2_out[i], theta3_out[i]);
+                theta1_out[i], theta2_out[i], theta3_out[i],a,b,c);
 
             if (!reachable)
             {

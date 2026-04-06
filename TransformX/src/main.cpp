@@ -57,7 +57,7 @@ void loop()
 
     if (cmdType == CMD_SET_POS)
     {
-        success = my_bot_ik::inv_kin_global(legEndPos,xl, yl, zl, sideSign, theta1_out, theta2_out, theta3_out);
+        success = my_bot_ik::inv_kin_global(legEndPos,xl, yl, zl, sideSign, theta1_out, theta2_out, theta3_out, a, b, c);
         if (!success)
         {
             Serial.println("Unreachable position, IK not done!");
@@ -66,6 +66,6 @@ void loop()
     }
 
     printJointAngles();
-    applyServoMapping();
+    //applyServoMapping();
     writeServosDriver(theta1_out, theta2_out, theta3_out);
 }

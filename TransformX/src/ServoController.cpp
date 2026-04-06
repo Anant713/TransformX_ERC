@@ -13,8 +13,8 @@ Servo servos[NUM_LEGS][3];
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver(0x40);
 
 // Servo pulse limits for PCA9685
-#define SERVO_MIN 110
-#define SERVO_MAX 500
+#define SERVO_MIN 1000
+#define SERVO_MAX 2000
 
 // Convert angle → PCA9685 pulse
 uint16_t angleToPulse(float angle)
@@ -37,8 +37,13 @@ void initServos()
     // }
 
     // -------- PCA9685 setup --------
-    Wire.begin();
 
+
+    // Explicit I2C init (IMPORTANT)
+    //Wire.begin(SDA_PIN, SCL_PIN);
+    //Wire.setClock(100000);   // stable for debugging
+    Wire.begin();
+ 
     pwm.begin();
     pwm.setPWMFreq(50); // 50Hz servo frequency
     delay(10);
@@ -62,8 +67,8 @@ void writeServosDriver(float t1[], float t2[], float t3[])
         int ch1 = i*3 + 1;
         int ch2 = i*3 + 2;
 
-        pwm.setPWM(ch0, 0, angleToPulse(t1[i]));
-        pwm.setPWM(ch1, 0, angleToPulse(t2[i]));
-        pwm.setPWM(ch2, 0, angleToPulse(t3[i]));
+        pwm.setPWM(ch0, 0, angleToPulse(45));
+        pwm.setPWM(ch1, 0, angleToPulse(45));
+        pwm.setPWM(ch2, 0, angleToPulse(45));
     }
 }

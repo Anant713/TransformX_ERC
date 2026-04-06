@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <n>my_bot_control</n>
+  <name>my_bot_control</name>
   <version>0.1.0</version>
   <description>IK solver and control nodes for my_bot quadruped</description>
   <maintainer email="you@example.com">you</maintainer>

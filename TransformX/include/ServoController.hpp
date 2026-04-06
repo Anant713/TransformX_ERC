@@ -1,8 +1,11 @@
 #ifndef SERVO_CONTROLLER_HPP
 #define SERVO_CONTROLLER_HPP
 
-#include <ESP32Servo.h>
-#include <Adafruit_PWMServoDriver.h>
+//#include <ESP32Servo.h>
+
+#define SDA_PIN 21
+#define SCL_PIN 22
+//#include <Adafruit_PWMServoDriver.h>
 
 void initServos();
 
