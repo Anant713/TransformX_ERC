@@ -51,6 +51,7 @@ void loop()
     CommandType cmdType = receiveCommand();
 
     if (cmdType == CMD_NONE)
+    writeServosDriver(theta1_out, theta2_out, theta3_out);
         return;
 
     bool success = true;
