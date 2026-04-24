@@ -1,6 +1,6 @@
 #ifndef SERVO_CONTROLLER_HPP
 #define SERVO_CONTROLLER_HPP
-
+#include <Wire.h>
 //#include <ESP32Servo.h>
 
 #define SDA_PIN 21

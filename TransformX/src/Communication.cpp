@@ -15,20 +15,20 @@ CommandType receiveCommand()
 
     if (cmd == "home")
     {
-        theta1_out[0] = 0.0f;
-        theta1_out[1] = 0.0f;
-        theta1_out[2] = 0.0f;
-        theta1_out[3] = 0.0f;
+        theta1_out[0] = 90.0f;
+        theta1_out[1] = 90.0f;
+        theta1_out[2] = 90.0f;
+        theta1_out[3] = 90.0f;
 
         theta2_out[0] = 45.0f;
-        theta2_out[1] = 0.0f;
-        theta2_out[2] = 0.0f;
-        theta2_out[3] = 0.0f;
+        theta2_out[1] = 45.0f;
+        theta2_out[2] = 45.0f;
+        theta2_out[3] = 45.0f;
 
         theta3_out[0] = 45.0f;
-        theta3_out[1] = 0.0f;
-        theta3_out[2] = 0.0f;
-        theta3_out[3] = 0.0f;
+        theta3_out[1] = 45.0f;
+        theta3_out[2] = 45.0f;
+        theta3_out[3] = 45.0f;
 
         Serial.println("Going Home.");
         return CMD_HOME;

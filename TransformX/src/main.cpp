@@ -38,7 +38,13 @@ void setup()
     Serial.begin(115200);
     Serial.setTimeout(5000); // Set timeout for Serial read operations
     initServos();
-
+    for (byte i = 1; i < 127; i++) {
+        Wire.beginTransmission(i);
+        if (Wire.endTransmission() == 0) {
+        Serial.print("Found I2C device at: 0x");
+        Serial.println(i, HEX);
+        }
+    }
     Serial.println("Quadruped Ready.");
     Serial.println("Commands:");
     Serial.println("home");
@@ -50,10 +56,10 @@ void loop()
 {
     CommandType cmdType = receiveCommand();
 
-    if (cmdType == CMD_NONE)
+    if (cmdType == CMD_NONE){
     writeServosDriver(theta1_out, theta2_out, theta3_out);
         return;
-
+    }
     bool success = true;
 
     if (cmdType == CMD_SET_POS)
