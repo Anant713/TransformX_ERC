@@ -1,78 +1,38 @@
-#include <Arduino.h>
-#include "RobotConfig.hpp"
-#include "Kinematics.hpp"
-#include "ServoController.hpp"
+#include "Robot.hpp"
+#include "PCA9685Driver.hpp"
 #include "Communication.hpp"
-#include "HardwareConfig.hpp"
-#include "RobotState.hpp"
 
-
-static void printJointAngles()
-{
-    for (int i = 0; i < NUM_LEGS; i++)
-    {
-        Serial.print("Leg ");
-        Serial.print(i);
-        Serial.print(" -> ");
-
-        Serial.print(theta1_out[i]);
-        Serial.print(", ");
-        Serial.print(theta2_out[i]);
-        Serial.print(", ");
-        Serial.println(theta3_out[i]);
-    }
-}
-
-static void applyServoMapping()
-{
-    for (int i = 0; i < NUM_LEGS; i++)
-    {
-        theta1_out[i] = servoOffsets[i][0] + theta1_out[i] * servoAngSigns[i][0];
-        theta2_out[i] = servoOffsets[i][1] + theta2_out[i] * servoAngSigns[i][1];
-        theta3_out[i] = servoOffsets[i][2] + theta3_out[i] * servoAngSigns[i][2];
-    }
-}
+PCA9685Driver driver;
+Robot robot(&driver);
 
 void setup()
 {
     Serial.begin(115200);
-    Serial.setTimeout(5000); // Set timeout for Serial read operations
-    initServos();
-    for (byte i = 1; i < 127; i++) {
-        Wire.beginTransmission(i);
-        if (Wire.endTransmission() == 0) {
-        Serial.print("Found I2C device at: 0x");
-        Serial.println(i, HEX);
-        }
-    }
-    Serial.println("Quadruped Ready.");
-    Serial.println("Commands:");
-    Serial.println("home");
-    Serial.println("setpos x y z");
-    Serial.println("setang t1 t2 t3");
+    driver.init();
 }
 
 void loop()
 {
-    CommandType cmdType = receiveCommand();
+    Command cmd = receiveCommand();
 
-    if (cmdType == CMD_NONE){
-    writeServosDriver(theta1_out, theta2_out, theta3_out);
-        return;
-    }
-    bool success = true;
-
-    if (cmdType == CMD_SET_POS)
+    switch (cmd.type)
     {
-        success = my_bot_ik::inv_kin_global(legEndPos,xl, yl, zl, sideSign, theta1_out, theta2_out, theta3_out, a, b, c);
-        if (!success)
-        {
-            Serial.println("Unreachable position, IK not done!");
-            return;
-        }
+    case CMD_HOME:
+        robot.setPosition(0, 0, -20);
+        break;
+
+    case CMD_SET_POS:
+        robot.setPosition(cmd.x, cmd.y, cmd.z);
+        break;
+
+    case CMD_SET_ANG:
+        robot.setAngles(cmd.leg, cmd.t1, cmd.t2, cmd.t3);
+        break;
+
+    case CMD_WALK:
+        // future gait
+        break;
     }
 
-    printJointAngles();
-    //applyServoMapping();
-    writeServosDriver(theta1_out, theta2_out, theta3_out);
+    robot.update();
 }
