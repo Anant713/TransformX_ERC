@@ -18,7 +18,8 @@ Command receiveCommand()
     }
     else if (input.startsWith("setpos"))
     {
-        sscanf(input.c_str(), "setpos %f %f %f", &cmd.x, &cmd.y, &cmd.z);
+        sscanf(input.c_str(), "setpos %d %f %f %f", 
+                    &cmd.leg, &cmd.x, &cmd.y, &cmd.z);
         cmd.type = CMD_SET_POS;
     }
     else if (input.startsWith("setang"))
@@ -26,6 +27,7 @@ Command receiveCommand()
         sscanf(input.c_str(), "setang %d %f %f %f",
                &cmd.leg, &cmd.t1, &cmd.t2, &cmd.t3);
         cmd.type = CMD_SET_ANG;
+        Serial.println("Received joint angles");
     }
     else if (input == "walk")
     {

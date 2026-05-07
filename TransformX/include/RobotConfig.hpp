@@ -21,13 +21,13 @@ namespace RobotConfig
     constexpr float c = 30.0f;
 
     // Servo mapping
-    constexpr float servoOffsets[NUM_LEGS][NUM_JOINTS] = {
+    constexpr int servoOffsets[NUM_LEGS][NUM_JOINTS] = {
         {90, 90, 90},
         {90, 90, 90},
         {90, 90, 90},
         {90, 90, 90}};
 
-    constexpr float servoSigns[NUM_LEGS][NUM_JOINTS] = {
+    constexpr int servoSigns[NUM_LEGS][NUM_JOINTS] = {
         {-1, -1, 1},
         {-1, 1, -1},
         {1, 1, -1},
