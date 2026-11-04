@@ -7,6 +7,7 @@ constexpr int NUM_JOINTS = 3;
 
 /**
  * @brief Physical geometry (meters or mm)
+ * Indexing convention for legs: 0 - Front Left, 1 - Back Left, 2 - Front Right, 3 - Back Right
  */
 namespace RobotConfig
 {
@@ -16,9 +17,9 @@ namespace RobotConfig
     constexpr float zl[NUM_LEGS] = {0.0f, 0.0f, 0.0f, 0.0f};
 
     // Link lengths
-    constexpr float a = 10.0f;
-    constexpr float b = 20.0f;
-    constexpr float c = 30.0f;
+    constexpr float a = 60.0f;
+    constexpr float b = 95.0f;
+    constexpr float c = 180.0f;
 
     // Servo mapping
     constexpr int servoOffsets[NUM_LEGS][NUM_JOINTS] = {

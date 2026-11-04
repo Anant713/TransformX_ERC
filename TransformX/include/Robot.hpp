@@ -1,6 +1,7 @@
 #pragma once
 
 #include "IServoDriver.hpp"
+#include "IIMU.hpp"
 #include "RobotConfig.hpp"
 constexpr float RAD_TO_DEG = 180.0f / 3.14159265f;
 constexpr float DEG_TO_RAD = 3.14159265f / 180.0f;
@@ -33,8 +34,8 @@ private: // Contains private state and methods(primarily computation, which the 
     float servo3[NUM_LEGS];
 
     // Driver abstraction
-    IServoDriver* driver;
-
+    IServoDriver* servoDriver;
+    IIMU* imu;
     // --- Private methods ---
     bool computeIK(); // Compute IK for all legs, returns false if any leg is out of reach, calls inverseKinematics for each leg after adjusting for shoulder position
     bool inverseKinematics(float x, float y, float z,          // Compute IK for a single leg, returns false if out of reach
@@ -43,6 +44,7 @@ private: // Contains private state and methods(primarily computation, which the 
                            float& x, float& y, float& z);
     
     void applyServoMapping(); // Apply servo mapping to all legs, converts theta1/2/3 to servo1/2/3 using RobotConfig
+    void LinearTransition(int leg, int steps, int delayMs, float changex, float changey, float changez); // Smoothly transition from current angles to target angles in given steps and delay, used for smooth walking gait
 
 public:
     enum Mode // State machine bot
@@ -55,7 +57,7 @@ public:
 
     Mode mode;
 
-    Robot(IServoDriver* drv);
+    Robot(IServoDriver* servodrv, IIMU* imudrv);
 
     // --- Public API ---
     void idle(); // User wants the bot to do nothing, it will hold its position and not update servo angles
