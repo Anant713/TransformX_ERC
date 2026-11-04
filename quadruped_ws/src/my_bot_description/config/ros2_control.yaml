@@ -1,0 +1,62 @@
+# ============================================================
+# ros2_control.yaml
+# Referenced in my_robot.urdf via:
+#   $(find my_bot_description)/config/ros2_control.yaml
+#
+# Controllers:
+#   leg_position_controller  — JointTrajectoryController for all 12 leg joints
+#   wheel_velocity_controller — velocity controller for 4 wheels
+#   joint_state_broadcaster  — publishes /joint_states
+# ============================================================
+
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    leg_position_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    wheel_velocity_controller:
+      type: velocity_controllers/JointGroupVelocityController
+
+# ---- Leg joints: position-controlled -------------------------
+leg_position_controller:
+  ros__parameters:
+    # Joint order must match the order in which the IK node publishes angles.
+    # Per leg:  shoulder (θ1 / yaw) → femur (θ2 / hip pitch) → leg (θ3 / knee)
+    joints:
+      - shoulder_1_joint
+      - femur_top_1_joint   # Note: leg 1 uses femur_top_1_joint, not femur_1_joint
+      - leg_1_joint
+      - shoulder_2_joint
+      - femur_2_joint
+      - leg_2_joint
+      - shoulder_3_joint
+      - femur_3_joint
+      - leg_3_joint
+      - shoulder_4_joint
+      - femur_4_joint
+      - leg_4_joint
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    # Allow immediate execution (no time-based goal tolerance for IK testing)
+    goal_time: 0.0
+    stopped_velocity_tolerance: 0.05
+    constraints:
+      stopped_velocity_tolerance: 0.05
+      goal_time: 0.0
+
+# ---- Wheel joints: velocity-controlled -----------------------
+wheel_velocity_controller:
+  ros__parameters:
+    joints:
+      - wheel_1_joint
+      - wheel_2_joint
+      - wheel_3_joint
+      - wheel_4_joint
